@@ -24,3 +24,16 @@ export const getTrends = async (type = "all", period = "day", page = 1) => {
 
   //console.log("data", data);
 };
+
+export const getTop = async (type, page = 1) => {
+  const url = `${BASE_URL}${type}/top_rated?api_key=${API_KEY}${LANGUAGE}&page=${page}`;
+  console.log("🚀  url", url);
+
+  return await getData(url);
+};
+
+export const getPopular = async (type, page = 1) => {
+  const url = `${BASE_URL}${type}/popular?api_key=${API_KEY}${LANGUAGE}&page=${page}`;
+  console.log("🚀  url", url);
+  return await getData(url);
+};
