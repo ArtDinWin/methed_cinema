@@ -1,4 +1,4 @@
-import { getPopular, getTop } from "./services.js";
+import { getTrends, getPopular, getTop } from "./services.js";
 import renderCards from "./renderCards.js";
 
 const title = document.querySelector(".other-films__title");
@@ -16,8 +16,19 @@ const menuLink = () => {
         filmWeek.style.display = "none";
         title.textContent = target.textContent;
 
+        if (target.classList.contains("get-nav__link_triends")) {
+          getTrends(undefined, "day").then((data) => renderCards(data.results));
+        }
+
+        if (target.classList.contains("get-nav__link_popular-tv")) {
+          getPopular("tv").then((data) => renderCards(data.results));
+        }
+
         if (target.classList.contains("get-nav__link_popular-movies")) {
           getPopular("movie").then((data) => renderCards(data.results));
+        }
+        if (target.classList.contains("get-nav__link_top-movies")) {
+          getTop("movie").then((data) => renderCards(data.results));
         }
 
         if (target.classList.contains("get-nav__link_top-tv")) {

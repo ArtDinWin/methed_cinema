@@ -5,13 +5,18 @@ const renderCards = async (data) => {
   listCard.textContent = "";
 
   const cards = data.map((item) => {
-    console.log("🚀 item", item);
+    // console.log("🚀 item", item);
     const card = document.createElement("li");
     card.className = "other-films__item";
 
     const link = document.createElement("a");
     link.className = "other-films__link";
-    link.dataset.rating = item.vote_average;
+
+    if (item.vote_average) {
+      link.dataset.rating = item.vote_average;
+    } else {
+      link.dataset.rating = "—";
+    }
 
     const img = document.createElement("img");
     img.className = "other-films__img";
