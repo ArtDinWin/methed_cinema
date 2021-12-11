@@ -17,9 +17,9 @@ const getData = (url) =>
     )
     .catch((err) => console.error(err));
 
-export const getTrends = async (type = "all", period = "week", page = 1) => {
+export const getTrends = async (type = "all", period = "week", page = 3) => {
   const url = `${BASE_URL}trending/${type}/${period}?api_key=${API_KEY}${LANGUAGE}&page=${page}`;
-  console.log("url", url);
+  //console.log("url", url);
 
   //const data = await getData("https://jsonplaceholder.typicode.com/todos/1");
   return await getData(url);
@@ -39,3 +39,16 @@ export const getPopular = async (type, page = 1) => {
   console.log("🚀  url", url);
   return await getData(url);
 };
+
+export const getVideo = async (id, type) => {
+  const url = `${BASE_URL}${type}/${id}/videos?api_key=${API_KEY}${LANGUAGE}`;
+  return await getData(url);
+};
+
+/*
+Movies
+${BASE_URL}${type}/${id}?api_key=${API_KEY}${LANGUAGE}
+Tv
+https://api.themoviedb.org/3/tv/{tv_id}/videos?api_key=<<api_key>>&language=en-US
+
+*/

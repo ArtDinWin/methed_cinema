@@ -1,22 +1,33 @@
-import { getTrends } from "./services.js";
+import { getTrends, getVideo } from "./services.js";
 import renderCards from "./renderCards.js";
 
 const filmWeek = document.querySelector(".film-week");
-const firstRender = (data) => {
-  console.log("🚀 data", data);
-  filmWeek.innerHTML = `<div class="container film-week__container" data-rating="${
-    data.vote_average
-  }">
+const firstRender = (data, { key }) => {
+  const {
+    vote_average: voteAverage,
+    backdrop_path: backdropPath,
+    name,
+    original_name: originalName,
+    title,
+    original_title: originalTitle,
+  } = data;
+  //  console.log("🚀 data", data);
+  filmWeek.innerHTML = `<div class="container film-week__container" data-rating="${voteAverage}">
                 <div class="film-week__poster-wrapper">
-                    <img class="film-week__poster" src="https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${
-                      data.backdrop_path
-                    }" alt="Постер ${data.name || data.title}">
+                    <img class="film-week__poster" src="https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${backdropPath}" alt="Постер ${
+    name || title
+  }">
                     <p class="film-week__title_origin">${
-                      data.original_name || data.original_title
+                      originalName || originalTitle
                     }</p>
                 </div>
-                <h2 class="film-week__title">${data.name || data.title}</h2>
-                <a class="film-week__watch-trailer tube" href="https://youtu.be/V0hagz_8L3M" aria-label="смотреть трейлер"></a>
+                <h2 class="film-week__title">${name || title}</h2>
+                ${
+                  key
+                    ? `<a class="film-week__watch-trailer tube" href="https://youtu.be/${key}" aria-label="смотреть трейлер"></a>`
+                    : ``
+                }
+                
             </div>`;
 };
 
@@ -25,8 +36,13 @@ const renderVideo = async () => {
   //console.log("🚀 data", data);
   const [firstCard, ...otherCard] = data.results;
   otherCard.length = 16;
-  console.log("🚀 otherCard", otherCard);
-  firstRender(firstCard);
+  //console.log("🚀 otherCard", otherCard);
+
+  const video = await getVideo(firstCard.id, firstCard.media_type);
+  //console.log("🚀 video", video);
+  //console.log("🚀 video", video.results[video.results.length - 1]);
+  //console.log("🚀 video", video);
+  firstRender(firstCard, video.results[0]);
   renderCards(otherCard);
 };
 
