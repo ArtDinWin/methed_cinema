@@ -6,18 +6,15 @@ https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>> */
 
 const getData = (url) =>
   fetch(url)
-    .then(
-      (response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw `Что-то пошло не так! Ошибка ${response.status}`;
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
       }
-      // console.log(response);
-    )
+      throw `Что-то пошло не так, ошибка ${response.status}`;
+    })
     .catch((err) => console.error(err));
 
-export const getTrends = async (type = "all", period = "week", page = 3) => {
+export const getTrends = async (type = "all", period = "week", page = 1) => {
   const url = `${BASE_URL}trending/${type}/${period}?api_key=${API_KEY}${LANGUAGE}&page=${page}`;
   //console.log("url", url);
 
@@ -36,7 +33,7 @@ export const getTop = async (type, page = 1) => {
 
 export const getPopular = async (type, page = 1) => {
   const url = `${BASE_URL}${type}/popular?api_key=${API_KEY}${LANGUAGE}&page=${page}`;
-  console.log("🚀  url", url);
+  console.log("🚀 ~ file: services.js ~ line 36 ~ getPopular ~ url", url);
   return await getData(url);
 };
 
@@ -51,4 +48,15 @@ ${BASE_URL}${type}/${id}?api_key=${API_KEY}${LANGUAGE}
 Tv
 https://api.themoviedb.org/3/tv/{tv_id}/videos?api_key=<<api_key>>&language=en-US
 
+*/
+
+export const search = async (query, page = 1) => {
+  const url = `${BASE_URL}search/multi?api_key=${API_KEY}${LANGUAGE}&page=${page}&include_adult=false&query=${query}`;
+  console.log("🚀 url", url);
+  return await getData(url);
+};
+
+/*
+${BASE_URL}search/multi?api_key=${API_KEY}${LANGUAGE}&page=${page}&include_adult=false&query=${query}
+https://api.themoviedb.org/3/search/multi?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
 */

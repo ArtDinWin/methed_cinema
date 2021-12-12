@@ -2,7 +2,7 @@ import { getTrends, getVideo } from "./services.js";
 import renderCards from "./renderCards.js";
 
 const filmWeek = document.querySelector(".film-week");
-const firstRender = (data, { key }) => {
+const firstRender = (data, key) => {
   const {
     vote_average: voteAverage,
     backdrop_path: backdropPath,
@@ -10,10 +10,14 @@ const firstRender = (data, { key }) => {
     original_name: originalName,
     title,
     original_title: originalTitle,
+    overview,
   } = data;
   //  console.log("🚀 data", data);
   filmWeek.innerHTML = `<div class="container film-week__container" data-rating="${voteAverage}">
                 <div class="film-week__poster-wrapper">
+
+<div class="help-tip help-tip-poster"><p>${overview}<img class="img-help" src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2//lNyLSOKMMeUPr1RsL4KcRuIXwHt.jpg"></p></div>
+
                     <img class="film-week__poster" src="https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${backdropPath}" alt="Постер ${
     name || title
   }">
@@ -42,7 +46,14 @@ const renderVideo = async () => {
   //console.log("🚀 video", video);
   //console.log("🚀 video", video.results[video.results.length - 1]);
   //console.log("🚀 video", video);
-  firstRender(firstCard, video.results[0]);
+
+  // поправило в services.js getTrends  page = 1
+  /*
+  if (!video.results[0]) {
+    video.results = [{ key: null }];
+  }
+  */
+  firstRender(firstCard, video.results[0]?.key);
   renderCards(otherCard);
 };
 
