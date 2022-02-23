@@ -1,6 +1,6 @@
 # methed_cinema - Учебный проект 2021
-![Preview](https://github.com/ArtDinWin/methed_cinema/blob/master/img/preview.jpg)
 онлайн-кинотеатр на JS
+![Preview](https://github.com/ArtDinWin/methed_cinema/blob/master/img/preview.jpg)
 # Посмотреть тут - https://artdinwin.github.io/methed_cinema/
 
 ## Проект выполнил: Топоров Артем
