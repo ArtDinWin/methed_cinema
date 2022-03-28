@@ -20,3 +20,17 @@
 - Работа с объектами и массивами данных
 
 
+`function removeTask(e) {
+if (
+e.target.hasAttribute("data-action") &&
+e.target.getAttribute("data-action") == "delete"
+) {
+let taskName = e.target.parentElement.querySelector("div").innerText;
+    if (confirm(`Удалить задачу: ${taskName}?`)) {
+      e.target.parentNode.remove();
+      let indexTask = tasks.findIndex((i) => i == taskName);
+      tasks.splice(indexTask, 1);
+      resaveStorage(tasks);
+    }
+}
+}`
